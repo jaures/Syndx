@@ -8,6 +8,7 @@ import { PrimarySideNavComponent } from './components/primary-side-nav/primary-s
 import { SecondarySideNavComponent } from './components/secondary-side-nav/secondary-side-nav.component';
 import { HeaderComponent } from './components/header/header.component';
 import { FooterComponent } from './components/footer/footer.component';
+import { DashboardComponent } from './pages/dashboard/dashboard.component';
 
 @NgModule({
   declarations: [
@@ -15,7 +16,8 @@ import { FooterComponent } from './components/footer/footer.component';
     PrimarySideNavComponent,
     SecondarySideNavComponent,
     HeaderComponent,
-    FooterComponent
+    FooterComponent,
+    DashboardComponent
   ],
   imports: [
     BrowserModule,
