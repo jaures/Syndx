@@ -1,0 +1,26 @@
+<div class="flex h-screen w-screen overflow-hidden">
+  <!-- Primary Side Nav -->
+  <app-primary-side-nav></app-primary-side-nav>
+  <!-- Secondary Container -->
+  <div class="flex-grow flex flex-col">
+    <!-- Header -->
+    <app-header></app-header>
+
+    <div class="flex-grow flex">
+      <!-- Secondary Side Nav -->
+      <app-secondary-side-nav></app-secondary-side-nav>
+
+      <!-- Main Content-->
+      <div class="flex-grow flex flex-col">
+        <div class="flex-grow">
+          Main Content works!
+          <router-outlet></router-outlet>
+        </div>
+        <!-- Footer -->
+        <app-footer></app-footer>
+      </div>
+    </div>
+
+
+  </div>
+</div>
