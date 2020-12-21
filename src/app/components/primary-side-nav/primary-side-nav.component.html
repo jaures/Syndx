@@ -1,1 +1,13 @@
-<p>primary-side-nav works!</p>
+<nav class="w-12 bg-gray-700 text-gray-200 flex h-full flex-col shadow-lg">
+    
+    <div class="flex flex-col items-center justify-center text-2xl flex-grow">
+        <fa-icon class="nav-section" [icon]="faExpand"></fa-icon>
+        <fa-icon class="nav-section" [icon]="faCalendar"></fa-icon>
+        <fa-icon class="nav-section" [icon]="faTasks"></fa-icon>
+        <fa-icon class="nav-section" [icon]="faStickyNote"></fa-icon>
+    </div>
+    
+    <fa-icon class="nav-section text-2xl" [icon]="faUser"></fa-icon>
+    <fa-icon class="nav-section text-2xl mb-8" [icon]="faCog"></fa-icon>
+    
+</nav>
