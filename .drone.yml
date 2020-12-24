@@ -1,0 +1,67 @@
+---
+kind: pipeline
+type: docker
+name: Inspection
+
+platform:
+  os: linux
+  arch: amd64
+
+trigger:
+  event:
+    - pull_request
+    - push
+    - tag
+
+steps:
+  - name: "Install"
+    image: node:latest
+    depends_on: ["clone"]
+    commands:
+      - npm install
+  - name: "Lint: Dockerfiles"
+    image: hadolint/hadolint:latest-alpine
+    depends_on: [ "Install" ]
+    commands:
+      - hadolint ./Dockerfile
+
+  - name: "Lint: TypeScript"
+    image: node:latest
+    depends_on: [ "Install" ]
+    commands:
+      - npx -p @angular/cli ng lint
+
+---
+kind: pipeline
+type: docker
+name: Testing
+
+platform:
+  os: linux
+  arch: amd64
+
+trigger:
+  event:
+    - pull_request
+    - push
+    - tag
+
+steps:
+- name: "Install"
+  image: node:latest
+  depends_on: ["clone"]
+  commands:
+    - npm install
+
+- name: "Unit Tests"
+  image: trion/ng-cli-karma:9.0.6
+  depends_on: ["Install"]
+  commands:
+    - ng test --progress false --watch false
+
+- name: "E2E Tests"
+  image: trion/ng-cli-e2e:9.0.6
+  depends_on: ["Install"]
+  commands:
+    - ./node_modules/protractor/node_modules/webdriver-manager/bin/webdriver-manager update --versions.chrome 2.41
+    - ng e2e --webdriver-update=false --protractor-config=e2e/protractor-ci.conf.js
