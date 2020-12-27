@@ -1,0 +1,9 @@
+FROM django:latest
+
+COPY . /app
+
+WORKDIR /app
+
+RUN ["pip", "install", "-r" "server/requirements.txt"]
+
+EXPOSE 8000
