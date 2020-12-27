@@ -19,11 +19,16 @@ steps:
     depends_on: ["clone"]
     commands:
       - npm install
+
   - name: "Lint: Dockerfiles"
     image: hadolint/hadolint:latest-alpine
-    depends_on: [ "Install" ]
     commands:
-      - hadolint ./Dockerfile
+      - hadolint ./Dockerfile.angular
+
+  - name: "Lint: Dockerfiles"
+    image: hadolint/hadolint:latest-alpine
+    commands:
+      - hadolint ./Dockerfile.django
 
   - name: "Lint: TypeScript"
     image: node:latest
