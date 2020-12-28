@@ -22,12 +22,13 @@ steps:
 
   - name: "Lint: Dockerfiles"
     image: hadolint/hadolint:latest-alpine
+    depends_on: ["clone"]
     commands:
       - hadolint ./Dockerfile.angular ./Dockerfile.django
 
   - name: "Lint: TypeScript"
     image: node:latest
-    depends_on: [ "Install" ]
+    depends_on: ["Install"]
     commands:
       - npx -p @angular/cli ng lint
 
