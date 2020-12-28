@@ -5,11 +5,14 @@ volumes:
     driver: local
   app_node_modules:
     driver: local
+  app_database:
+    driver: local
 
 services:
   angular:
     build:
       context: .
+      dockerfile: Dockerfile.angular
     environment:
       - ENV:dev
     ports:
@@ -18,3 +21,27 @@ services:
       - app_node_modules:/app/node_modules
       - .:/app
     command: "node_modules/.bin/ng serve --host 0.0.0.0"
+
+  django:
+    build:
+      context: .
+      dockerfile: Dockerfile.django
+    environment:
+      - ENV:dev
+    ports:
+      - "8000:8000"
+    volumes:
+      - .:/app
+    command: "python server/manage.py runserver 0.0.0.0:8000"
+    depends_on: [ postgres ]
+
+  postgres:
+    image: postgres:latest
+    environment:
+      - ENV:dev
+      - PGDATA=/var/lib/postgresql/data/pgdata
+      - POSTGRES_HOST_AUTH_METHOD=trust
+    ports:
+      - "5432:5432"
+    volumes:
+      - app_database:/var/lib/postgresql/data/pgdata

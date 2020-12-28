@@ -1,0 +1,17 @@
+FROM python:3.8
+
+# hadolint ignore=DL3008
+RUN apt-get update \
+    && apt-get install -y --no-install-recommends \
+        postgresql-client-13 \
+    && rm -rf /var/lib/apt/lists/*
+
+COPY . /app
+
+WORKDIR /app
+
+RUN ["pip", "install", "--no-cache-dir", "-r", "server/requirements.txt"]
+
+EXPOSE 8000
+
+CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]
