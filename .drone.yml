@@ -23,12 +23,7 @@ steps:
   - name: "Lint: Dockerfiles"
     image: hadolint/hadolint:latest-alpine
     commands:
-      - hadolint ./Dockerfile.angular
-
-  - name: "Lint: Dockerfiles"
-    image: hadolint/hadolint:latest-alpine
-    commands:
-      - hadolint ./Dockerfile.django
+      - hadolint ./Dockerfile.angular ./Dockerfile.django
 
   - name: "Lint: TypeScript"
     image: node:latest
