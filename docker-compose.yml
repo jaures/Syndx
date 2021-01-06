@@ -26,13 +26,15 @@ services:
     build:
       context: .
       dockerfile: Dockerfile.django
-    environment:
-      - ENV:dev
+    # environment:
+    #   - ENV:dev
+    env_file:
+      - server/.env
     ports:
       - "8000:8000"
     volumes:
       - .:/app
-    command: "python server/manage.py runserver 0.0.0.0:8000"
+    command: "python server/manage.py runserver 0:8000"
     depends_on: [ postgres ]
 
   postgres:
@@ -41,7 +43,10 @@ services:
       - ENV:dev
       - PGDATA=/var/lib/postgresql/data/pgdata
       - POSTGRES_HOST_AUTH_METHOD=trust
+      - POSTGRES_DB=app
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
     ports:
       - "5432:5432"
     volumes:
-      - app_database:/var/lib/postgresql/data/pgdata
+      - ./server/data:/var/lib/postgresql/data/pgdata
